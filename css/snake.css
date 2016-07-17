@@ -1,0 +1,21 @@
+* {margin:0; padding:0}
+body {background:#333; text-align:center; font-size:12px}
+table {margin:20px auto; overflow:hidden; border-collapse:collapse}
+td {width:30px; height:30px; border:1px solid #eee; background:#ccc}
+#say {margin-top:30px; color:white; font-size:20px}
+#help {width:600px; padding-left:30px; margin:0 auto; line-height:22px; color:white;}
+#help span {float:left; margin-left:28px}
+#help .box {width:20px; height:20px; margin-right:-18px;border:1px solid white}
+#highestScore {float:right; font-size:20px;font-style:italic;color:red;}
+.button {display:inline-block; width:110px; height:40px; border:none;  color:#FFF; 
+	border-radius:18px; margin:15px 26px 0 0; cursor:pointer;font-weight:bold}
+.button:hover{border:2px solid white}
+#btnStart {background-color:#ff910f}
+#btnStop {background-color:red}
+#btnContinue {background-color:green}
+
+.cover {background:#39c;}
+.food {background:#093}
+.block {background:#333}
+.brake {background:#f00}
+.skate {background:#00f}
