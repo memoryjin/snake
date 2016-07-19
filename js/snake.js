@@ -132,19 +132,19 @@ window.addEventListener("load", function(){
 				clearInterval(blockTimer);
 				blockTimer = setInterval(function() {
 					addObject("block");
-				}, random(5000, 80000));
+				}, random(5000, 100000));
 				break;
 			case "brake":
 				clearInterval(brakeTimer);
 				brakeTimer = setInterval(function() {
 					addObject("brake");
-				}, random(5000, 30000));
+				}, random(5000, 100000));
 				break;
 			case "skate":
 				clearInterval(skateTimer);
 				skateTimer = setInterval(function() {
 					addObject("skate");
-				}, random(5000, 50000));
+				}, random(5000, 100000));
 				break;
 		}
 	}
@@ -174,6 +174,14 @@ window.addEventListener("load", function(){
 	        clearInterval(blockTimer); 
 	        oSay.innerHTML = "你已阵亡";
 	        btnStart.value = "重新开始";
+
+	        /* 以下关于最高分纪录对IE和firefox有效，但对chrome无效*/
+	        if(getCookie("highestCore") === "no cookie") {
+	        	cookie("highestCore", scoreValue, 10000);
+	        } else if(scoreValue > getCookie("highestCore")) {
+	        	cookie("highestCore", scoreValue, 10000);
+	        	alert("恭喜你，创造新的纪录了，最高分为" + scoreValue +"分！！");
+	        }
 	    }
 	    else {
 	        switch(carrier[headX][headY]) {
@@ -225,6 +233,30 @@ window.addEventListener("load", function(){
 	    allowPress = true;    
 	}
 
+	//设置和清除cookie
+	function cookie(name, value, iDay) {
+		if(value !== undefined) {
+			var oDate = new Date();
+			oDate.setDate(oDate.getDate() + iDay);
+			document.cookie = name + "=" + value +"; expires=" + oDate;
+		}
+		else {
+			cookie(name, "hello" , -1);
+		}
+	}
+
+	//获取cookie
+	function getCookie(name) {
+		var arr = document.cookie.split("; ");
+		for(var i = 0, length = arr.length; i < length; i++) {
+			var arr2 = arr[i].split("=");
+			if(arr2[0] === name) {
+				return arr2[1];
+			}
+		}
+		return "no cookie";
+	}
+
 	/*--------------以下是运行的代码---------------------*/
 	
 	//初始化网格
@@ -242,7 +274,7 @@ window.addEventListener("load", function(){
 		createTimer("skate");
 		
 		//添加键盘事件
-		document.addEventListener("keydown", function() {
+		document.addEventListener("keydown", function(event) {
 			var keyCode = event.keyCode;
             if(Math.abs(directKey - keyCode) !== 2 && allowPress === true) {
                 directKey = keyCode;
