@@ -56,6 +56,7 @@ window.addEventListener("load", function(){
 
 
 	function initGrid() {
+	    var width = Math.floor(((parseInt(document.documentElement.clientHeight) - 200)/20));//根据浏览器高度获取合适的单元格大小		
 		gridElems = multiArray(20, 20);
 		var snakeWrap = document.getElementById("snakeWrap");
 	    var table = document.createElement("table"),
@@ -64,6 +65,10 @@ window.addEventListener("load", function(){
 	        var row = document.createElement("tr");  
 	        for(var j = 0; j < 20; j++) {  
 	            var col = document.createElement("td");
+	            
+	            col.style.width = width + "px"; //设置单元格宽
+	            col.style.height = width + "px"; //设置单元格高
+	            
 	            gridElems[j][i] = row.appendChild(col);//二维数组里面都存着所有单元格位置信息 
 	        }
 	        tbody.appendChild(row);  
