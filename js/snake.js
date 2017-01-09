@@ -175,14 +175,16 @@ window.addEventListener("load", function(){
 	        oSay.innerHTML = "你已阵亡";
 	        btnStart.value = "重新开始";
 
-	        /* 以下关于最高分纪录对IE和firefox有效，但对chrome无效*/
-	        if(getCookie("highestCore") === "no cookie") {
-	        	cookie("highestCore", scoreValue, 10000);
-	        } else if(scoreValue > getCookie("highestCore")) {
-	        	cookie("highestCore", scoreValue, 10000);
-	        	alert("恭喜你，创造新的纪录了，最高分为" + scoreValue +"分！！");
-	        }
+	        /*localStorage测试的时候需要将文件上传到服务器或者localhost上——————针对IE和firefox，chrome不需要*/
+	    	if(localStorage.getItem("highestCore") === null) {
+	    		localStorage.setItem("highestCore", scoreValue);
+	    	} else if(scoreValue > localStorage.getItem("highestCore")) {
+	    		localStorage.setItem("highestCore", scoreValue);
+	    		alert("恭喜你，创造新的纪录了，最高分为" + scoreValue +"分！！");
+	    	}	    
 	    }
+
+
 	    else {
 	        switch(carrier[headX][headY]) {
 	            case "food":
@@ -233,29 +235,6 @@ window.addEventListener("load", function(){
 	    allowPress = true;    
 	}
 
-	//设置和清除cookie
-	function cookie(name, value, iDay) {
-		if(value !== undefined) {
-			var oDate = new Date();
-			oDate.setDate(oDate.getDate() + iDay);
-			document.cookie = name + "=" + value +"; expires=" + oDate;
-		}
-		else {
-			cookie(name, "hello" , -1);
-		}
-	}
-
-	//获取cookie
-	function getCookie(name) {
-		var arr = document.cookie.split("; ");
-		for(var i = 0, length = arr.length; i < length; i++) {
-			var arr2 = arr[i].split("=");
-			if(arr2[0] === name) {
-				return arr2[1];
-			}
-		}
-		return "no cookie";
-	}
 
 	/*--------------以下是运行的代码---------------------*/
 	
